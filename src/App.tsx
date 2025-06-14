@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import ItemTable, { type Item } from "./components/ItemTable";
+import ItemTable from "./components/ItemTable";
 import SearchBar from "./components/SearchBar";
 import SearchResults from "./components/SearchResults";
 
@@ -20,7 +20,6 @@ function App() {
         }
 
         const json = await data.json();
-        const itemsArray = Object.values(json as Record<number, Item>);
         localStorage.setItem("bulkData", JSON.stringify(json));
       } catch (error) {
         console.error(error.message);
