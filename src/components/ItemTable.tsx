@@ -78,7 +78,7 @@ function ItemTable() {
                     alt={item.name}
                   />
                 </TableCell>
-                <TableCell>{item.name}</TableCell>
+                <TableCell className="text-start">{item.name}</TableCell>
               </TableRow>
             );
           })}
