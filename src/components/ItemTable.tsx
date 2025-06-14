@@ -7,12 +7,10 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
-import SpinnerCircle3 from "./customized/spinner/spinner-09";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
-  PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from "./ui/pagination";
@@ -24,32 +22,16 @@ export interface Item {
 }
 
 function ItemTable() {
-  const [loading, setLoading] = useState(true);
   const [items, setItems] = useState<Item[]>([]);
   const [page, setPage] = useState(1);
   const itemsPerPage = 20;
 
+  let itemsArray: Item[];
+
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await fetch(
-          "https://chisel.weirdgloop.org/gazproj/gazbot/os_dump.json"
-        );
-
-        if (!data.ok) {
-          throw new Error(`Response status: ${data.status}`);
-        }
-
-        const json = await data.json();
-        const itemsArray = Object.values(json as Record<number, Item>);
-        setItems(itemsArray);
-        setLoading(false);
-      } catch (error) {
-        console.error(error.message);
-      }
-    }
-
-    fetchData();
+    const json = JSON.parse(localStorage.getItem("bulkData") || "{}");
+    itemsArray = Object.values(json as Record<number, Item>);
+    setItems(itemsArray);
   }, []);
 
   const totalPages = Math.ceil(items.length / itemsPerPage);
@@ -67,9 +49,7 @@ function ItemTable() {
     page * itemsPerPage
   );
 
-  return loading ? (
-    <SpinnerCircle3 />
-  ) : (
+  return (
     <>
       <Table>
         <TableHeader>
@@ -116,7 +96,7 @@ function ItemTable() {
                 e.preventDefault();
                 goToPreviousPage();
               }}
-              isDisabled={page === 1}
+              isActive={page !== 1}
             />
           </PaginationItem>
           <PaginationItem>
@@ -126,7 +106,7 @@ function ItemTable() {
                 e.preventDefault();
                 goToNextPage();
               }}
-              isDisabled={page === totalPages}
+              isActive={page !== totalPages}
             />
           </PaginationItem>
         </PaginationContent>

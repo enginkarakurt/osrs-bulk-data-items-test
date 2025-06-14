@@ -1,12 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
-import ItemTable from "./components/ItemTable";
+import ItemTable, { type Item } from "./components/ItemTable";
 import SearchBar from "./components/SearchBar";
 import SearchResults from "./components/SearchResults";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await fetch(
+          "https://chisel.weirdgloop.org/gazproj/gazbot/os_dump.json"
+        );
+
+        if (!data.ok) {
+          throw new Error(`Response status: ${data.status}`);
+        }
+
+        const json = await data.json();
+        const itemsArray = Object.values(json as Record<number, Item>);
+        localStorage.setItem("bulkData", JSON.stringify(json));
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <main className="grid gap-8">
