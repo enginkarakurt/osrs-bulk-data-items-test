@@ -13,12 +13,12 @@ function SearchResults({ results, setInputValue }) {
       className="w-full bg-white flex flex-col shadow-2xl border-t-2 border-2 mt-2 rounded-lg max-h-80 overflow-y-scroll"
     >
       {results.map((item: Item, id: number) => {
-        const regEx = new RegExp(" ", "g");
-        const regEx2 = new RegExp("&amp;", "g");
+        const regExSpace = new RegExp(" ", "g");
+        const regExAnd = new RegExp("&amp;", "g");
         const iconUrl = item.icon
           ? `https://oldschool.runescape.wiki/images/${item.icon
-              .replace(regEx, "_")
-              .replace(regEx2, "&")}`
+              .replace(regExSpace, "_")
+              .replace(regExAnd, "&")}`
           : "";
         return (
           <li

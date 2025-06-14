@@ -21,7 +21,7 @@ function App() {
 
         const json = await data.json();
         localStorage.setItem("bulkData", JSON.stringify(json));
-      } catch (error) {
+      } catch (error: any) {
         console.error(error.message);
       }
     }
