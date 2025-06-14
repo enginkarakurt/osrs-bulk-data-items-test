@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import "./App.css";
 import ItemTable from "./components/ItemTable";
 import SearchBar from "./components/SearchBar";
 import SearchResults from "./components/SearchResults";
@@ -30,13 +29,15 @@ function App() {
   }, []);
 
   return (
-    <main className="grid gap-8">
-      <SearchBar
-        setSearchResults={setSearchResults}
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-      />
-      <SearchResults results={searchResults} setInputValue={setInputValue} />
+    <main className="grid gap-8 max-w-[1280px] mx-auto my-0 p-8 text-center">
+      <div className="relative">
+        <SearchBar
+          setSearchResults={setSearchResults}
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+        />
+        <SearchResults results={searchResults} setInputValue={setInputValue} />
+      </div>
       <ItemTable />
     </main>
   );

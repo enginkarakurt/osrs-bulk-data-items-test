@@ -10,7 +10,7 @@ function SearchResults({ results, setInputValue }) {
   ) : (
     <ul
       id="searchResults"
-      className="w-full bg-white flex flex-col shadow-2xl border-t-2 border-2 mt-2 rounded-lg max-h-80 overflow-y-scroll"
+      className="w-full absolute top-8 bg-white z-10 flex flex-col shadow-2xl border-2 border-blue-200 rounded-lg mt-2 max-h-80 overflow-y-scroll"
     >
       {results.map((item: Item, id: number) => {
         const regExSpace = new RegExp(" ", "g");
